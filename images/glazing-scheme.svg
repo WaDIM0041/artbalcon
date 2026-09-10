@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 720" fill="none" role="img" aria-label="Технологическая схема узла остекления балкона">
+  <defs>
+    <pattern id="hatch" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#f0a35a" stroke-width="1.4" opacity="0.35"/>
+    </pattern>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" stroke="#f2f1ed" stroke-width="1" opacity="0.05"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#f0a35a"/>
+    </marker>
+    <marker id="arrS" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#f2f1ed" opacity="0.8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="640" height="720" fill="url(#grid)"/>
+
+  <!-- Штамп -->
+  <g font-family="Manrope, Arial, sans-serif">
+    <text x="36" y="52" font-size="17" letter-spacing="4" fill="#f0a35a">РАЗРЕЗ УЗЛА ОСТЕКЛЕНИЯ</text>
+    <text x="36" y="74" font-size="12" letter-spacing="2" fill="#f2f1ed" opacity="0.5">АВАНГАРД · ТАТПРОФ · М 1:10</text>
+  </g>
+  <line x1="36" y1="92" x2="604" y2="92" stroke="#f2f1ed" stroke-width="1" opacity="0.2"/>
+
+  <!-- Фасадная стена (слева — улица) -->
+  <rect x="36" y="120" width="54" height="500" fill="#141518" stroke="#f2f1ed" stroke-width="1.2" opacity="1"/>
+  <line x1="36" y1="150" x2="90" y2="150" stroke="#f2f1ed" stroke-width="1" opacity="0.25"/>
+  <line x1="36" y1="590" x2="90" y2="590" stroke="#f2f1ed" stroke-width="1" opacity="0.25"/>
+  <text x="40" y="375" font-size="13" letter-spacing="3" fill="#f2f1ed" opacity="0.55" transform="rotate(-90 40 375)">ФАСАД · УЛИЦА</text>
+
+  <!-- Плиты перекрытия -->
+  <rect x="90" y="120" width="470" height="26" fill="#141518" stroke="#f2f1ed" stroke-width="1.2"/>
+  <rect x="90" y="594" width="470" height="26" fill="#141518" stroke="#f2f1ed" stroke-width="1.2"/>
+
+  <!-- Профиль Авангард -->
+  <rect x="150" y="146" width="34" height="448" fill="#1b1d21" stroke="#f0a35a" stroke-width="1.6"/>
+  <line x1="158" y1="146" x2="158" y2="594" stroke="#f0a35a" stroke-width="1" opacity="0.5"/>
+  <line x1="167" y1="146" x2="167" y2="594" stroke="#f0a35a" stroke-width="1" opacity="0.5"/>
+  <line x1="176" y1="146" x2="176" y2="594" stroke="#f0a35a" stroke-width="1" opacity="0.5"/>
+
+  <!-- Стеклопакет 44 мм: 3 стекла -->
+  <line x1="196" y1="160" x2="196" y2="580" stroke="#bfe3ff" stroke-width="3" opacity="0.9"/>
+  <line x1="212" y1="160" x2="212" y2="580" stroke="#bfe3ff" stroke-width="3" opacity="0.9"/>
+  <line x1="228" y1="160" x2="228" y2="580" stroke="#bfe3ff" stroke-width="3" opacity="0.9"/>
+  <!-- Дистанция -->
+  <line x1="196" y1="600" x2="228" y2="600" stroke="#f0a35a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="196" y="622" font-size="14" fill="#f0a35a" font-family="Manrope, Arial, sans-serif">44 мм</text>
+
+  <!-- Термокороб + базальт -->
+  <rect x="250" y="146" width="96" height="448" fill="url(#hatch)" stroke="#f0a35a" stroke-width="1.4"/>
+  <rect x="250" y="146" width="96" height="448" fill="#f0a35a" opacity="0.06"/>
+  <!-- Дистанция -->
+  <line x1="250" y1="600" x2="346" y2="600" stroke="#f0a35a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="262" y="622" font-size="14" fill="#f0a35a" font-family="Manrope, Arial, sans-serif">100 мм</text>
+
+  <!-- Пароизоляция -->
+  <line x1="352" y1="146" x2="352" y2="594" stroke="#f2f1ed" stroke-width="2" stroke-dasharray="7 5" opacity="0.85"/>
+
+  <!-- Чистовая отделка -->
+  <rect x="358" y="146" width="26" height="448" fill="#1b1d21" stroke="#f2f1ed" stroke-width="1.2" opacity="1"/>
+
+  <!-- Тёплый пол -->
+  <line x1="384" y1="594" x2="560" y2="594" stroke="#f0a35a" stroke-width="2.5"/>
+  <path d="M392 594 q8 -12 16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0" stroke="#f0a35a" stroke-width="1.6"/>
+
+  <!-- Точка росы -->
+  <circle cx="298" cy="370" r="5" fill="#f0a35a"/>
+  <circle cx="298" cy="370" r="11" stroke="#f0a35a" stroke-width="1.2" opacity="0.6"/>
+
+  <!-- Выноски -->
+  <g font-family="Manrope, Arial, sans-serif" font-size="14">
+    <!-- профиль -->
+    <line x1="167" y1="230" x2="120" y2="230" stroke="#f2f1ed" stroke-width="1" opacity="0.6" marker-start="url(#arrS)"/>
+    <text x="36" y="212" fill="#f2f1ed">Профиль</text>
+    <text x="36" y="230" fill="#f0a35a">«Авангард»</text>
+    <!-- стеклопакет -->
+    <line x1="212" y1="300" x2="420" y2="300" stroke="#f2f1ed" stroke-width="1" opacity="0.6" marker-start="url(#arrS)"/>
+    <text x="428" y="294" fill="#f2f1ed">Стеклопакет</text>
+    <text x="428" y="312" fill="#f2f1ed" opacity="0.6">2-камерный</text>
+    <!-- термокороб -->
+    <line x1="298" y1="450" x2="420" y2="450" stroke="#f2f1ed" stroke-width="1" opacity="0.6" marker-start="url(#arrS)"/>
+    <text x="428" y="444" fill="#f2f1ed">Термокороб +</text>
+    <text x="428" y="462" fill="#f2f1ed" opacity="0.6">базальт 100 мм</text>
+    <!-- пароизоляция -->
+    <line x1="352" y1="520" x2="420" y2="520" stroke="#f2f1ed" stroke-width="1" opacity="0.6" marker-start="url(#arrS)"/>
+    <text x="428" y="524" fill="#f2f1ed">Пароизоляция</text>
+    <!-- точка росы -->
+    <line x1="309" y1="370" x2="420" y2="370" stroke="#f0a35a" stroke-width="1" opacity="0.8"/>
+    <text x="428" y="364" fill="#f0a35a">Точка росы —</text>
+    <text x="428" y="382" fill="#f0a35a">за контуром</text>
+    <!-- фасад 0 мм -->
+    <line x1="36" y1="660" x2="90" y2="660" stroke="#f0a35a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+    <text x="110" y="665" fill="#f0a35a">0 мм — фасад не изменён</text>
+  </g>
+
+  <!-- Интерьер -->
+  <text x="470" y="375" font-size="13" letter-spacing="3" fill="#f2f1ed" opacity="0.55" transform="rotate(90 470 375)" font-family="Manrope, Arial, sans-serif">ИНТЕРЬЕР</text>
+</svg>
