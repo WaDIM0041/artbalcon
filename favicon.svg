@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="АртЭлитБалкон">
+  <title>АртЭлитБалкон</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0a35a"/>
+      <stop offset="55%" stop-color="#c9a45c"/>
+      <stop offset="100%" stop-color="#8a6a1f"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0b0c0e"/>
+  <!-- Stylized "AE" mark as architecture/balcony profile -->
+  <g fill="url(#g)">
+    <!-- top profile bar -->
+    <rect x="10" y="14" width="44" height="6" rx="1.5"/>
+    <!-- left vertical profile -->
+    <rect x="10" y="14" width="6" height="36" rx="1.5"/>
+    <!-- right vertical profile -->
+    <rect x="48" y="14" width="6" height="36" rx="1.5"/>
+    <!-- bottom profile bar (parapet) -->
+    <rect x="10" y="44" width="44" height="6" rx="1.5"/>
+    <!-- middle mullion -->
+    <rect x="29" y="20" width="6" height="24" rx="1.5" opacity="0.85"/>
+  </g>
+</svg>
