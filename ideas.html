@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Витрина идей — ArtBalkon</title>
+
+<!--
+  Шрифт Unbounded подключаем через Google Fonts.
+  ЭТУ СТРОКУ МОЖНО УДАЛИТЬ, ЕСЛИ ШРИФТ UNBOUNDED УЖЕ ПОДКЛЮЧЁН НА САЙТЕ.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Минимальная демо-обвязка самой страницы (в блок НЕ входит) -->
+<style>
+  html, body { margin: 0; padding: 0; background: #0b0c0e; }
+</style>
+</head>
+<body>
+
+<!-- ===== НАЧАЛО БЛОКА ===== -->
+<style>
+/* ============================================================================
+   СЕКЦИЯ «ВИТРИНА ИДЕЙ» — эффект «Живое стекло»
+   Стили и скрипт намеренно лежат внутри блока, чтобы его можно было
+   целиком скопировать на сайт (см. инструкцию в самом низу файла).
+   ============================================================================ */
+
+/* ---------- 1. ТОКЕНЫ ---------- */
+:root{
+  /* URL картинок галереи. Меняйте ТОЛЬКО здесь — фоны карточек берутся отсюда. */
+  --img-1: url("public/ideas/ideas-1.jpg");
+  --img-2: url("public/ideas/ideas-2.jpg");
+  --img-3: url("public/ideas/ideas-3.jpg");
+  --img-4: url("public/ideas/ideas-4.jpg");
+  --img-5: url("public/ideas/ideas-5.jpg");
+  --img-6: url("public/ideas/ideas-6.jpg");
+}
+
+.ideas{
+  --bg:      #0b0c0e;
+  --accent:  #f0a35a;
+  --text:    #f4f1ec;
+  --muted:   rgba(244,241,236,.62);
+  --line:    rgba(255,255,255,.08);
+  --r-slab:  28px;
+  --r-card:  18px;
+  --f-display: 'Unbounded', system-ui, sans-serif;
+  --f-body:    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---------- 2. КАРКАС СЕКЦИИ ---------- */
+.ideas{
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 110px 28px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--f-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.ideas *,
+.ideas *::before,
+.ideas *::after{ box-sizing: border-box; }
+
+/* очень медленно «дышащие» фоновые свечения */
+.ideas::before,
+.ideas::after{
+  content: "";
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+}
+.ideas::before{
+  width: 640px; height: 640px;
+  top: -240px; left: -180px;
+  background: radial-gradient(circle, rgba(240,163,90,.30), transparent 68%);
+  animation: glowA 19s ease-in-out infinite;
+}
+.ideas::after{
+  width: 720px; height: 720px;
+  bottom: -280px; right: -220px;
+  background: radial-gradient(circle, rgba(120,168,255,.16), transparent 68%);
+  animation: glowB 24s ease-in-out infinite;
+}
+
+.ideas__inner{
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Верхняя строка-лейбл */
+.ideas__top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 30px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Заголовки */
+.ideas__eyebrow{
+  margin: 0 0 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.ideas__title{
+  margin: 0 0 20px;
+  max-width: 660px;
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: clamp(30px, 4.7vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -.035em;
+  color: var(--text);
+}
+.ideas__lead{
+  margin: 0 0 40px;
+  max-width: 560px;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+/* ---------- 3. ПОЛОСА ИЗ 3 ШАГОВ ---------- */
+.steps{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin: 0 0 44px;
+  padding: 0;
+  list-style: none;
+}
+.steps > li{
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.step__num{
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(240,163,90,.55);
+  color: var(--accent);
+  font-family: var(--f-display);
+  font-size: 13px;
+  font-weight: 500;
+  animation: numPulse 3.4s ease-in-out infinite;
+}
+.steps > li:nth-child(2) .step__num{ animation-delay: .5s; }
+.steps > li:nth-child(3) .step__num{ animation-delay: 1s; }
+.step__t{
+  margin: 3px 0 6px;
+  font-family: var(--f-display);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  color: var(--text);
+}
+.step__d{
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------- 4. БОЛЬШОЙ СТЕКЛЯННЫЙ СЛЭБ ---------- */
+.slab{
+  --mx: -400px; --my: -400px;   /* координаты «дырки» в морозе */
+  --cx: -400px; --cy: -400px;   /* координаты кометы-блика */
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-slab);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+  box-shadow:
+    0 60px 130px -55px rgba(0,0,0,.92),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* ---------- 5. BENTO-ГАЛЕРЕЯ ---------- */
+.gallery{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 180px;
+  gap: 14px;
+}
+
+/* карточка — «ячейка» сетки (отвечает за появление при скролле) */
+.card{
+  position: relative;
+  opacity: 0;
+  transform: translateY(26px);
+  filter: blur(7px);
+  transition:
+    opacity   .8s cubic-bezier(.2,.7,.2,1) var(--d, 0ms),
+    transform .8s cubic-bezier(.2,.7,.2,1) var(--d, 0ms),
+    filter    .8s cubic-bezier(.2,.7,.2,1) var(--d, 0ms);
+  will-change: opacity, transform, filter;
+}
+.card.is-in{ opacity: 1; transform: translateY(0); filter: blur(0); }
+.card:nth-child(1){ --d: 0ms; }
+.card:nth-child(2){ --d: 90ms; }
+.card:nth-child(3){ --d: 180ms; }
+.card:nth-child(4){ --d: 270ms; }
+.card:nth-child(5){ --d: 360ms; }
+.card:nth-child(6){ --d: 450ms; }
+
+/* «внутренняя» карточка — визуальный стакан, отвечает за hover */
+.card__inner{
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--r-card);
+  border: 1px solid var(--line);
+  background-color: #14161a;
+  background-size: cover;
+  background-position: center;
+  transform: translateZ(0);
+  transition:
+    transform .45s cubic-bezier(.2,.7,.2,1),
+    box-shadow .45s ease,
+    border-color .45s ease;
+}
+.card--hero  .card__inner{ background-image: var(--img-1); }
+.card--tall  .card__inner{ background-image: var(--img-2); }
+.card--sq1   .card__inner{ background-image: var(--img-3); }
+.card--sq2   .card__inner{ background-image: var(--img-4); }
+.card--wide1 .card__inner{ background-image: var(--img-5); }
+.card--wide2 .card__inner{ background-image: var(--img-6); }
+
+.card__img{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+/* затемнение снизу — под подпись */
+.card__veil{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top,
+    rgba(6,7,9,.88) 0%,
+    rgba(6,7,9,.42) 40%,
+    rgba(6,7,9,0) 72%);
+}
+
+/* подпись: чип + название */
+.card__cap{
+  position: absolute;
+  left: 16px; right: 16px; bottom: 14px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  transition: transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.card__tag{
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(240,163,90,.45);
+  background: rgba(240,163,90,.16);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.card__name{
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: clamp(15px, 1.5vw, 19px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: rgba(244,241,236,.80);
+  transition: color .45s ease;
+}
+
+/* hover карточки */
+.card:hover .card__inner,
+.card:focus-within .card__inner{
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(240,163,90,.38);
+  box-shadow:
+    0 26px 55px -20px rgba(240,163,90,.38),
+    0 14px 34px -14px rgba(0,0,0,.75);
+}
+.card:hover .card__img,
+.card:focus-within .card__img{ transform: scale(1.06); }
+.card:hover .card__cap,
+.card:focus-within .card__cap{ transform: translateY(-4px); }
+.card:hover .card__name,
+.card:focus-within .card__name{ color: #ffffff; }
+
+/* ---------- 6. БЛИКИ (SHEEN) НА КАРТОЧКАХ ---------- */
+/* медленный диагональный блик, «пробегает» раз в ~8 s (свой офсет у каждой) */
+.card__inner::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(115deg,
+    transparent 38%,
+    rgba(255,255,255,.17) 50%,
+    transparent 62%);
+  transform: translateX(-135%);
+  animation: cardSheen var(--sheenDur, 8s) ease-in-out infinite;
+  animation-delay: var(--sheenDelay, 0s);
+}
+.card:nth-child(1) .card__inner::before{ --sheenDur: 7.4s; --sheenDelay: -0.4s; }
+.card:nth-child(2) .card__inner::before{ --sheenDur: 8.6s; --sheenDelay: -3.1s; }
+.card:nth-child(3) .card__inner::before{ --sheenDur: 8.0s; --sheenDelay: -5.6s; }
+.card:nth-child(4) .card__inner::before{ --sheenDur: 7.8s; --sheenDelay: -2.2s; }
+.card:nth-child(5) .card__inner::before{ --sheenDur: 9.0s; --sheenDelay: -6.4s; }
+.card:nth-child(6) .card__inner::before{ --sheenDur: 8.2s; --sheenDelay: -1.3s; }
+
+/* яркая одиночная полоса на hover */
+.card__inner::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(115deg,
+    transparent 42%,
+    rgba(255,255,255,.5) 50%,
+    transparent 58%);
+  transform: translateX(-140%);
+}
+.card:hover .card__inner::after,
+.card:focus-within .card__inner::after{
+  animation: hoverSheen .95s ease-out;
+}
+
+/* ---------- 7. МОРОЗНОЕ СТЕКЛО ---------- */
+.frost{
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;               /* не мешает кликам и наведению */
+  border-radius: inherit;
+  background-color: rgba(232,230,226,.06);
+  background-image:
+    /* конденсат / шум */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.55'/%3E%3C/svg%3E"),
+    radial-gradient(130% 100% at 15% 8%,  rgba(255,255,255,.22), transparent 60%),
+    radial-gradient(120% 90%  at 85% 92%, rgba(255,255,255,.18), transparent 60%),
+    linear-gradient(155deg, rgba(244,241,236,.20), rgba(236,234,230,.12));
+  background-size: 200px 200px, auto, auto, auto;
+  background-blend-mode: overlay, normal, normal, normal;
+
+  /* сам мороз + размытие фона */
+  -webkit-backdrop-filter: blur(16px) saturate(.85);
+  backdrop-filter: blur(16px) saturate(.85);
+
+  /* «ДЫРКА» ПОД КУРСОРОМ: центр прозрачен = мороз протёрт */
+  -webkit-mask-image: radial-gradient(circle 190px at var(--mx) var(--my),
+      rgba(0,0,0,0) 0 42%, rgba(0,0,0,.55) 62%, #000 78%);
+  mask-image: radial-gradient(circle 190px at var(--mx) var(--my),
+      rgba(0,0,0,0) 0 42%, rgba(0,0,0,.55) 62%, #000 78%);
+
+  transition:
+    opacity 1.2s ease,
+    -webkit-backdrop-filter 1.2s ease,
+    backdrop-filter 1.2s ease;
+}
+/* мороз полностью «вытирается» после первого взаимодействия */
+.frost.is-off{
+  opacity: 0;
+  -webkit-backdrop-filter: blur(0px) saturate(1);
+  backdrop-filter: blur(0px) saturate(1);
+}
+
+/* комета-блик, тянется за курсором */
+.comet{
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 6;
+  width: 380px; height: 380px;
+  margin: -190px 0 0 -190px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(var(--cx), var(--cy), 0);
+  background: radial-gradient(circle at 50% 50%,
+    rgba(240,163,90,.42), rgba(240,163,90,.14) 42%, transparent 70%);
+  mix-blend-mode: screen;
+  filter: blur(8px);
+  transition: opacity .6s ease;
+}
+.slab.is-active .comet{ opacity: 1; }
+
+/* подсказка-чип поверх мороза */
+.hint{
+  position: absolute;
+  left: 50%; top: 50%;
+  z-index: 7;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: opacity .55s ease, transform .55s ease;
+}
+.hint__inner{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(18,20,24,.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  font-size: 13px;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  box-shadow: 0 20px 50px -22px rgba(0,0,0,.85);
+  animation: chipFloat 4.4s ease-in-out infinite;
+}
+.hint__dot{
+  position: relative;
+  flex: 0 0 auto;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.hint__dot::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: dotPulse 2.2s ease-out infinite;
+}
+.hint.is-hidden{
+  opacity: 0;
+  transform: translate(-50%, -58%) scale(.97);
+}
+
+/* ---------- 8. КНОПКИ ---------- */
+.actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+.btn{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  overflow: hidden;
+  font-family: var(--f-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform .35s cubic-bezier(.2,.7,.2,1),
+    box-shadow .35s ease,
+    background-color .35s ease,
+    border-color .35s ease,
+    color .35s ease;
+}
+.btn__label{ position: relative; z-index: 2; }
+
+.btn--primary{
+  background: var(--accent);
+  color: #1a1006;
+  box-shadow: 0 16px 36px -16px rgba(240,163,90,.6);
+}
+.btn--primary::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(115deg,
+    transparent 40%, rgba(255,255,255,.55) 50%, transparent 60%);
+  transform: translateX(-140%);
+  transition: transform .7s ease;
+}
+.btn--primary:hover{ transform: translateY(-3px); box-shadow: 0 22px 48px -16px rgba(240,163,90,.75); }
+.btn--primary:hover::after{ transform: translateX(140%); }
+.btn--primary:focus-visible{ outline: 2px solid #fff; outline-offset: 3px; }
+
+.btn--ghost{
+  background: transparent;
+  border-color: rgba(240,163,90,.5);
+  color: var(--accent);
+}
+.btn--ghost:hover{
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  background: rgba(240,163,90,.07);
+  box-shadow: 0 18px 40px -20px rgba(240,163,90,.55);
+}
+.btn--ghost:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- 9. АНИМАЦИИ ---------- */
+@keyframes glowA{
+  0%,100%{ transform: translate3d(0,0,0) scale(1);            opacity: .9; }
+  50%    { transform: translate3d(60px,40px,0) scale(1.12);   opacity: 1; }
+}
+@keyframes glowB{
+  0%,100%{ transform: translate3d(0,0,0) scale(1);            opacity: .8; }
+  50%    { transform: translate3d(-70px,-50px,0) scale(1.1);  opacity: 1; }
+}
+@keyframes numPulse{
+  0%,100%{ box-shadow: 0 0 0 0 rgba(240,163,90,.35); }
+  50%    { box-shadow: 0 0 0 9px rgba(240,163,90,0); }
+}
+@keyframes cardSheen{
+  0%   { transform: translateX(-135%); }
+  14%  { transform: translateX(135%); }
+  100% { transform: translateX(135%); }
+}
+@keyframes hoverSheen{
+  0%  { transform: translateX(-140%); opacity: 0; }
+  25% { opacity: 1; }
+  100%{ transform: translateX(140%); opacity: 0; }
+}
+@keyframes chipFloat{
+  0%,100%{ transform: translateY(0); }
+  50%    { transform: translateY(-7px); }
+}
+@keyframes dotPulse{
+  0%  { box-shadow: 0 0 0 0 rgba(240,163,90,.6); }
+  70% { box-shadow: 0 0 0 12px rgba(240,163,90,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(240,163,90,0); }
+}
+
+/* ---------- 10. АДАПТИВ ---------- */
+@media (max-width: 980px){
+  .ideas{ padding: 88px 22px; }
+  .gallery{
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: dense;
+  }
+  .card--hero  { grid-column: span 2; grid-row: span 2; }
+  .card--tall  { grid-column: span 1; grid-row: span 2; }
+  .card--wide1 { grid-column: span 2; grid-row: span 1; }
+  .card--wide2 { grid-column: span 2; grid-row: span 1; }
+  .card--sq1   { grid-column: span 1; grid-row: span 1; }
+  .card--sq2   { grid-column: span 1; grid-row: span 1; }
+}
+
+@media (max-width: 760px){
+  .steps{ grid-template-columns: 1fr; gap: 18px; }
+}
+
+@media (max-width: 560px){
+  .ideas{ padding: 70px 16px; }
+  .ideas__top{ font-size: 10px; letter-spacing: .2em; }
+  .ideas__title{ font-size: clamp(26px, 8vw, 38px); }
+
+  .slab{ padding: 10px; }
+
+  .gallery{
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+  .card{ grid-column: auto !important; grid-row: auto !important; }
+  .card--hero{ height: 320px; }
+  .card--tall{ height: 380px; }
+  .card--sq1,
+  .card--sq2,
+  .card--wide1,
+  .card--wide2{ height: 220px; }
+
+  .actions{ flex-direction: column; }
+  .btn{ width: 100%; }
+  .hint__inner{ font-size: 12px; padding: 10px 16px; }
+}
+
+/* ---------- 11. УМЕНЬШЕННАЯ АНИМАЦИЯ ---------- */
+@media (prefers-reduced-motion: reduce){
+  .ideas *,
+  .ideas *::before,
+  .ideas *::after{
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .comet{ display: none; }
+  .card{ opacity: 1 !important; transform: none !important; filter: none !important; }
+  .card__inner::before{ opacity: 0 !important; }
+}
+</style>
+
+<section class="ideas" aria-labelledby="ideas-title">
+  <div class="ideas__inner">
+
+    <!-- 1) верхняя строка-лейбл -->
+    <div class="ideas__top">
+      <span>Витрина идей</span>
+      <span>06 / проектов</span>
+    </div>
+
+    <!-- 2) eyebrow + 3) заголовок + 4) лид -->
+    <p class="ideas__eyebrow">В нашем офисе, при вас</p>
+    <h2 class="ideas__title" id="ideas-title">Поможем воплотить вашу самую креативную идею</h2>
+    <p class="ideas__lead">
+      При вас создадим визуал вашего балкона. Приезжайте к нам в офис — Санкт-Петербург, Октябрьская наб., 6, офис 307 —
+      и мы при вас создадим вашу мечту.
+    </p>
+
+    <!-- 5) полоса из 3 мини-шагов -->
+    <ul class="steps">
+      <li>
+        <span class="step__num" aria-hidden="true">01</span>
+        <div>
+          <h3 class="step__t">Приходите с идеей</h3>
+          <p class="step__d">Фото, скетч или референс — сгодится всё.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step__num" aria-hidden="true">02</span>
+        <div>
+          <h3 class="step__t">Собираем визуал при вас</h3>
+          <p class="step__d">На большом экране подбираем остекление, отделку и свет.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step__num" aria-hidden="true">03</span>
+        <div>
+          <h3 class="step__t">Уходите с проектом</h3>
+          <p class="step__d">Готовый визуал и честная смета — в тот же день.</p>
+        </div>
+      </li>
+    </ul>
+
+    <!-- 6) большой стеклянный слэб: bento-галерея + мороз + комета + подсказка -->
+    <div class="slab">
+
+      <div class="gallery">
+
+        <!-- ФОТО 1 → hero -->
+        <article class="card card--hero">
+          <div class="card__inner">
+            <!-- ЗАМЕНИТЕ ФОТО 1: панорама (--img-1) -->
+            <img class="card__img" loading="lazy" decoding="async"
+                 src="public/ideas/ideas-1.jpg"
+                 alt="Панорамный балкон с остеклением в пол">
+            <span class="card__veil" aria-hidden="true"></span>
+            <div class="card__cap">
+              <span class="card__tag">Остекление в пол</span>
+              <h3 class="card__name">Панорамный балкон</h3>
+            </div>
+          </div>
+        </article>
+
+        <!-- ФОТО 2 → tall -->
+        <article class="card card--tall">
+          <div class="card__inner">
+            <!-- ЗАМЕНИТЕ ФОТО 2: тёплый вечерний свет (--img-2) -->
+            <img class="card__img" loading="lazy" decoding="async"
+                 src="public/ideas/ideas-2.jpg"
+                 alt="Вечерний лаунж на балконе с тёплым светом">
+            <span class="card__veil" aria-hidden="true"></span>
+            <div class="card__cap">
+              <span class="card__tag">Тёплый свет</span>
+              <h3 class="card__name">Вечерний лаунж</h3>
+            </div>
+          </div>
+        </article>
+
+        <!-- ФОТО 3 → sq1 -->
+        <article class="card card--sq1">
+          <div class="card__inner">
+            <!-- ЗАМЕНИТЕ ФОТО 3: зелень и дерево (--img-3) -->
+            <img class="card__img" loading="lazy" decoding="async"
+                 src="public/ideas/ideas-3.jpg"
+                 alt="Зимний сад на балконе с зеленью и деревом">
+            <span class="card__veil" aria-hidden="true"></span>
+            <div class="card__cap">
+              <span class="card__tag">Зелень и дерево</span>
+              <h3 class="card__name">Зимний сад</h3>
+            </div>
+          </div>
+        </article>
+
+        <!-- ФОТО 4 → sq2 -->
+        <article class="card card--sq2">
+          <div class="card__inner">
+            <!-- ЗАМЕНИТЕ ФОТО 4: рабочее место (--img-4) -->
+            <img class="card__img" loading="lazy" decoding="async"
+                 src="public/ideas/ideas-4.jpg"
+                 alt="Рабочий уголок у окна в тишине и свете">
+            <span class="card__veil" aria-hidden="true"></span>
+            <div class="card__cap">
+              <span class="card__tag">Тишина и свет</span>
+              <h3 class="card__name">Рабочий уголок</h3>
+            </div>
+          </div>
+        </article>
+
+        <!-- ФОТО 5 → wide1 -->
+        <article class="card card--wide1">
+          <div class="card__inner">
+            <!-- ЗАМЕНИТЕ ФОТО 5: ночная панорама (--img-5) -->
+            <img class="card__img" loading="lazy" decoding="async"
+                 src="public/ideas/ideas-5.jpg"
+                 alt="Ночная панорама города с балкона">
+            <span class="card__veil" aria-hidden="true"></span>
+            <div class="card__cap">
+              <span class="card__tag">Вид на город</span>
+              <h3 class="card__name">Ночная панорама</h3>
+            </div>
+          </div>
+        </article>
+
+        <!-- ФОТО 6 → wide2 -->
+        <article class="card card--wide2">
+          <div class="card__inner">
+            <!-- ЗАМЕНИТЕ ФОТО 6: обеденная зона (--img-6) -->
+            <img class="card__img" loading="lazy" decoding="async"
+                 src="public/ideas/ideas-6.jpg"
+                 alt="Обеденная зона на балконе, выполненная под ключ">
+            <span class="card__veil" aria-hidden="true"></span>
+            <div class="card__cap">
+              <span class="card__tag">Под ключ</span>
+              <h3 class="card__name">Обеденная зона</h3>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /.gallery -->
+
+      <!-- Морозное стекло: «дырка» под курсором + авто-протирание -->
+      <div class="frost" aria-hidden="true"></div>
+
+      <!-- Комета-блик за курсором -->
+      <div class="comet" aria-hidden="true"></div>
+
+      <!-- Подсказка-чип -->
+      <div class="hint">
+        <div class="hint__inner">
+          <span class="hint__dot" aria-hidden="true"></span>
+          <span>Проведите курсором — протрите стекло</span>
+        </div>
+      </div>
+
+    </div><!-- /.slab -->
+
+    <!-- 7) кнопки -->
+    <div class="actions">
+      <a class="btn btn--primary" href="tel:+79697762603" aria-label="Позвонить и приехать в офис">
+        <span class="btn__label">Приехать в офис</span>
+      </a>
+      <a class="btn btn--ghost" href="mailto:hello@artbalkon.ru" aria-label="Отправить нам свою идею по электронной почте">
+        <span class="btn__label">Показать свою идею</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+/* ============================================================================
+   ЖИВОЕ СТЕКЛО — логика морозного слоя, кометы и проявления карточек.
+   Только vanilla JS: mousemove + requestAnimationFrame + IntersectionObserver.
+   ============================================================================ */
+(function () {
+  "use strict";
+
+  var slab = document.querySelector(".slab");
+  if (!slab) { return; }
+
+  var frost = slab.querySelector(".frost");
+  var hint  = slab.querySelector(".hint");
+  var cards = slab.querySelectorAll(".card");
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine   = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* --------------------------------------------------------------------
+     A. ПРОЯВЛЕНИЕ КАРТОЧЕК ПРИ СКРОЛЛЕ (стаггер задан через --d в CSS)
+     -------------------------------------------------------------------- */
+  if ("IntersectionObserver" in window) {
+    var cardIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in");
+          cardIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+
+    cards.forEach(function (card) { cardIO.observe(card); });
+  } else {
+    // Фолбэк для очень старых браузеров
+    cards.forEach(function (card) { card.classList.add("is-in"); });
+  }
+
+  /* --------------------------------------------------------------------
+     B. МОРОЗНОЕ СТЕКЛО + КОМЕТА
+     -------------------------------------------------------------------- */
+  var OFFSCREEN = -400;                       // старт маски/кометы вне контейнера
+  // «цель» и «текущее» положение: m = дырка в морозе, c = комета
+  var mxT = OFFSCREEN, myT = OFFSCREEN, mx = OFFSCREEN, my = OFFSCREEN;
+  var cxT = OFFSCREEN, cyT = OFFSCREEN, cx = OFFSCREEN, cy = OFFSCREEN;
+
+  var L_MASK  = reduce ? 1 : 0.20;            // резкость догона дырки
+  var L_COMET = reduce ? 1 : 0.085;           // комета отстаёт сильнее (инерция)
+  var wiped = false;
+  var rafId = null, slabVisible = true;
+  function loopStart(){ if (rafId === null && fine) { rafId = requestAnimationFrame(frame); } }
+  function loopStop(){ if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } }
+
+  function frame() {
+    mx += (mxT - mx) * L_MASK;
+    my += (myT - my) * L_MASK;
+    cx += (cxT - cx) * L_COMET;
+    cy += (cyT - cy) * L_COMET;
+
+    slab.style.setProperty("--mx", mx.toFixed(1) + "px");
+    slab.style.setProperty("--my", my.toFixed(1) + "px");
+    slab.style.setProperty("--cx", cx.toFixed(1) + "px");
+    slab.style.setProperty("--cy", cy.toFixed(1) + "px");
+
+    if (document.hidden || !slabVisible || !slab.classList.contains("is-active")) { rafId = null; return; }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  // Автоматическое полное «протирание» мороза после первого взаимодействия
+  function wipeFrost(delay) {
+    if (wiped) { return; }
+    wiped = true;
+    slab.classList.remove("is-active");       // гасим комету
+    if (hint) { hint.classList.add("is-hidden"); }
+    window.setTimeout(function () {
+      if (frost) { frost.classList.add("is-off"); }
+    }, reduce ? 0 : delay);
+  }
+
+  if (fine) {
+    // Устройства с настоящим курсором: мороз «протирается» мышью
+    if ("IntersectionObserver" in window) {
+      var slabIO = new IntersectionObserver(function (entries) {
+        slabVisible = entries[entries.length - 1].isIntersecting;
+        if (slabVisible) { loopStart(); } else { loopStop(); }
+      }, { threshold: 0 });
+      slabIO.observe(slab);
+    }
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) { loopStop(); } else if (slabVisible) { loopStart(); }
+    });
+    slab.addEventListener("mouseenter", loopStart);
+
+    slab.addEventListener("mousemove", function (e) {
+      var r = slab.getBoundingClientRect();
+      loopStart();
+      mxT = cxT = e.clientX - r.left;
+      myT = cyT = e.clientY - r.top;
+
+      if (!slab.classList.contains("is-active")) {
+        slab.classList.add("is-active");
+        wipeFrost(650);                       // и сразу начинаем полное протирание
+      }
+    });
+
+    slab.addEventListener("mouseleave", function () {
+      slab.classList.remove("is-active");
+      loopStop();
+    });
+  } else {
+    // Тач / нет hover: мороз растворяется, когда блок попадает в поле зрения
+    if ("IntersectionObserver" in window) {
+      var frostIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            wipeFrost(500);
+            frostIO.disconnect();
+          }
+        });
+      }, { threshold: 0.35 });
+      frostIO.observe(slab);
+    } else {
+      wipeFrost(0);
+    }
+  }
+
+  /* --------------------------------------------------------------------
+     C. СБРОС ПРИ СМЕНЕ ОРИЕНТАЦИИ / РАЗМЕРА (координаты в px пересчитываются)
+     -------------------------------------------------------------------- */
+  window.addEventListener("resize", function () {
+    if (!slab.classList.contains("is-active")) {
+      mx = my = cx = cy = mxT = myT = cxT = cyT = OFFSCREEN;
+    }
+  });
+})();
+</script>
+<!-- ===== КОНЕЦ БЛОКА ===== -->
+<script>
+(function(){function send(){try{var h=document.body.scrollHeight;if(h>200&&h<12000){parent.postMessage({type:'ideas-height',h:h},location.origin);}}catch(e){}}window.addEventListener('load',function(){send();setTimeout(send,400);if(document.fonts&&document.fonts.ready){document.fonts.ready.then(send);}});window.addEventListener('resize',send);})();
+</script>
+</body>
+</html>
