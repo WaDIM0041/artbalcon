@@ -1,0 +1,21 @@
+name: WebP images
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'images/*.jpg'
+      - 'images/*.jpeg'
+permissions:
+  contents: write
+jobs:
+  webp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pillow
+      - run: python tools/webp.py
+      - run: git config user.name "github-actions[bot]"
+      - run: git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: git add -A
+      - run: git commit -m "chore: optimize images (webp)" || true
+      - run: git push
