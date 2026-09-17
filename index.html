@@ -507,7 +507,7 @@ savedSnapshot=currentSnapshot();dirty=false;
 
 </script>
 <script>(function(){var ID='smeta-calc',SID='ideas-showcase',SEL='footer.border-t',tries=0;/*mover-ok*/function place(){var el=document.getElementById(ID);var d=document.getElementById(SID);var f=document.querySelector('footer.border-t');if(!f||!f.parentNode)return false;var okS=true,okI=true;if(el){okS=(el.nextElementSibling===f);}if(d){var hero=document.querySelector('section#top');if(hero&&hero.parentNode){var nx=hero.nextElementSibling;while(nx&&(nx===el||nx===d)){nx=nx.nextElementSibling;}okI=(d.previousElementSibling===hero&&d.nextElementSibling===nx);}else if(el){okI=(d.previousElementSibling===el);}}if(okS&&okI)return true;try{if(el&&!okS){f.parentNode.insertBefore(el,f);}if(d&&!okI){var hero2=document.querySelector('section#top');if(hero2&&hero2.parentNode){var nx2=hero2.nextElementSibling;while(nx2&&(nx2===el||nx2===d)){nx2=nx2.nextElementSibling;}hero2.parentNode.insertBefore(d,nx2);}else if(el){el.parentNode.insertBefore(d,el.nextSibling);}}}catch(e){return false;}return true;}function tick(){tries++;var done=false;try{done=place();}catch(e){}if(!done&&tries<60){setTimeout(tick,250);return;}var root=document.getElementById('root');if(root&&window.MutationObserver){var guard=new MutationObserver(function(){try{place();}catch(e){}});guard.observe(root,{childList:true,subtree:true});}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(tick,60);});}else{setTimeout(tick,60);}})();</script>
-<script>(function(){var s=document.getElementById('smeta-calc');if(!s)return;var b=document.getElementById('smeta-toggle');function paint(){var open=s.classList.contains('smeta-open');if(b){b.textContent=open?'Свернуть \u2191':'Рассчитать смету';b.setAttribute('aria-expanded',open?'true':'false');}}function open(){s.classList.add('smeta-open');paint();}function close(){s.classList.remove('smeta-open');paint();}if(b){b.addEventListener('click',function(){if(s.classList.contains('smeta-open')){close();}else{open();}});}document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest?ev.target.closest('a[href="#smeta-calc"]'):null;if(a){open();}});if(location.hash==='#smeta-calc'){open();}paint();})();</script>
+<script>(function(){var s=document.getElementById('smeta-calc');if(!s)return;var b=document.getElementById('smeta-toggle');function paint(){var open=s.classList.contains('smeta-open');if(b){b.textContent=open?'Свернуть \u2191':'Рассчитать смету';b.setAttribute('aria-expanded',open?'true':'false');}}function open(){s.classList.add('smeta-open');paint();}function close(){s.classList.remove('smeta-open');paint();}if(b){b.addEventListener('click',function(){if(s.classList.contains('smeta-open')){close();}else{open();}});}document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest?ev.target.closest('a[href="#smeta-calc"]'):null;if(a){open();setTimeout(function(){var t=document.getElementById('smeta-calc');if(t){t.scrollIntoView({block:'start'});}},80);}});if(location.hash==='#smeta-calc'){open();}paint();})();</script>
 <!-- ===== /СМЕТА-КАЛЬКУЛЯТОР ===== -->
 
 <!-- ===== ВИТРИНА ИДЕЙ: отдельный файл ideas.html через iframe ===== -->
@@ -517,11 +517,282 @@ savedSnapshot=currentSnapshot();dirty=false;
 <script>(function(){window.addEventListener('message',function(e){try{if(!e||!e.data||e.data.type!=='ideas-height')return;if(e.origin!==location.origin)return;var f=document.getElementById('ideas-frame');if(f&&e.data.h>200&&e.data.h<12000){f.style.height=e.data.h+'px';}}catch(err){}});})();</script>
 <!-- ===== /ВИТРИНА ИДЕЙ ===== -->
 
-<!-- ===== ПРОФИЛЬ ОСТЕКЛЕНИЯ: отдельный файл profile-colors.html через iframe ===== -->
-<section id="profile-colors-showcase" aria-label="Цвета профиля остекления" style="background:#0b0c0e">
-<iframe id="profile-frame" src="profile-colors.html" title="Каким может быть профиль остекления" loading="eager" scrolling="no" style="width:100%;height:2100px;border:0;display:block;overflow:hidden"></iframe>
+<!-- ===== ПРОФИЛЬ ОСТЕКЛЕНИЯ (инлайн, без iframe) ===== -->
+<!-- ===== НАЧАЛО БЛОКА ===== -->
+<style>
+/* ============================================================================
+   СЕКЦИЯ «ЦВЕТА ПРОФИЛЯ ПОД ДЕРЕВО»
+   Стили лежат внутри блока, чтобы его можно было скопировать целиком.
+   JavaScript не нужен — только CSS. Анимаций минимум: hover + блик на плашке.
+   ============================================================================ */
+
+/* ---------- 1. ТОКЕНЫ ---------- */
+:root{
+  /* URL картинок. Меняйте ТОЛЬКО здесь — фоны и теги <img> берутся отсюда. */
+  --img-colors:  url("public/profile-colors/profile-colors-1.jpg");
+  --img-samples: url("public/profile-colors/profile-colors-2.jpg");
+}
+
+.prof-colors{
+  --bg:      #0b0c0e;
+  --accent:  #f0a35a;
+  --text:    #f4f1ec;
+  --muted:   rgba(244,241,236,.62);
+  --line:    rgba(255,255,255,.09);
+  --card:    #131417;
+  --r-card:  16px;
+  --f-display: 'Unbounded', system-ui, sans-serif;
+  --f-body:    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---------- 2. КАРКАС СЕКЦИИ ---------- */
+.prof-colors{
+  position: relative;
+  overflow: hidden;
+  padding: 96px 28px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+.prof-colors *,
+.prof-colors *::before,
+.prof-colors *::after{ box-sizing: border-box; }
+
+/* мягкое тёплое свечение в фоне — только градиент, без влияния на скорость */
+.prof-colors::before{
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -260px; right: -200px;
+  width: 620px; height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,163,90,.18), transparent 68%);
+  filter: blur(70px);
+  pointer-events: none;
+}
+.pc-wrap{ position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; }
+
+/* ---------- 3. ЗАГОЛОВКИ ---------- */
+.pc-eyebrow{
+  margin: 0 0 14px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .26em; text-transform: uppercase;
+  color: var(--accent);
+}
+.pc-title{
+  margin: 0 0 18px; max-width: 720px;
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1.06; letter-spacing: -.03em;
+}
+.pc-sub{
+  margin: 0 0 40px; max-width: 720px;
+  font-size: clamp(15px, 1.3vw, 17px);
+  line-height: 1.6; color: var(--muted);
+}
+
+/* ---------- 4. ИЛЛЮСТРАЦИИ ---------- */
+.pc-figure{
+  margin: 0 0 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: var(--card);
+}
+.pc-figure img{ display: block; width: 100%; height: auto; }
+.pc-figure figcaption{
+  padding: 14px 18px;
+  font-size: 13px; line-height: 1.5; color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- 5. СЕТКА КАРТОЧЕК ---------- */
+.pc-grid{
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 0 0 34px; padding: 0; list-style: none;
+}
+.pc-card{
+  display: flex; flex-direction: column;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--card);
+  transition: transform .4s cubic-bezier(.2,.7,.2,1),
+              border-color .4s ease,
+              box-shadow .4s ease;
+}
+.pc-card:hover{
+  transform: translateY(-5px);
+  border-color: rgba(240,163,90,.38);
+  box-shadow:
+    0 22px 44px -22px rgba(240,163,90,.35),
+    0 12px 28px -14px rgba(0,0,0,.7);
+}
+
+/* плашка-«образец» профиля с имитацией волокон; цвет задаётся через --c */
+.pc-chip{
+  position: relative;
+  display: block;
+  height: 56px;
+  margin: 0 0 14px;
+  border-radius: 9px;
+  overflow: hidden;
+  background-color: var(--c, #7a7d82);
+  background-image:
+    repeating-linear-gradient(94deg,
+      rgba(255,255,255,.075) 0 1px,
+      rgba(0,0,0,.055) 1px 3px,
+      transparent 3px 8px),
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(0,0,0,.20));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.07);
+}
+/* дешёвый блик: только transform */
+.pc-chip::after{
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(112deg, transparent 40%, rgba(255,255,255,.20) 50%, transparent 60%);
+  transform: translateX(-130%);
+  transition: transform .9s ease;
+}
+.pc-card:hover .pc-chip::after{ transform: translateX(130%); }
+
+.pc-card h3{ margin: 0 0 4px; font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; }
+.pc-decor{ margin: 0 0 10px; font-size: 12.5px; color: var(--accent); }
+.pc-card p{ margin: 0 0 10px; font-size: 13.8px; line-height: 1.5; color: rgba(244,241,236,.78); }
+.pc-fit{ margin: 0 !important; font-size: 12.8px !important; color: rgba(244,241,236,.5) !important; }
+
+/* ---------- 6. ПРИМЕЧАНИЕ: текст + образец в разрезе ---------- */
+.pc-note{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 22px;
+  align-items: center;
+  margin: 0 0 34px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: rgba(255,255,255,.025);
+}
+.pc-note figure{ margin: 0; border-radius: 12px; overflow: hidden; background: var(--card); }
+.pc-note img{ display: block; width: 100%; height: auto; }
+.pc-note p{ margin: 0; font-size: 13.4px; line-height: 1.65; color: rgba(244,241,236,.62); }
+
+/* ---------- 7. КНОПКА ---------- */
+.pc-cta{ display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.pc-btn{
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 16px 30px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #1a1006;
+  font-size: 15px; font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 16px 36px -16px rgba(240,163,90,.6);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease;
+}
+.pc-btn:hover{ transform: translateY(-2px); box-shadow: 0 22px 44px -18px rgba(240,163,90,.75); }
+.pc-hint{ font-size: 13.5px; color: var(--muted); }
+
+/* ---------- 8. АДАПТИВ ---------- */
+@media (max-width: 1080px){ .pc-grid{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 820px){ .pc-note{ grid-template-columns: 1fr; } }
+@media (max-width: 640px){
+  .prof-colors{ padding: 64px 16px; }
+  .pc-grid{ grid-template-columns: 1fr; }
+  .pc-cta{ flex-direction: column; align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce){
+  .pc-card, .pc-chip::after, .pc-btn{ transition: none !important; }
+}
+</style>
+
+<section class="prof-colors">
+  <div class="pc-wrap">
+
+    <p class="pc-eyebrow">Ламинация под дерево</p>
+    <h2 class="pc-title">Каким может быть профиль остекления</h2>
+    <p class="pc-sub">Пять оттенков ламинации со структурой дерева — от светлого серого до чёрного.
+      Подбираем цвет под отделку балкона и фасад дома и привозим физические образцы на замер.</p>
+
+    <!-- ИЛЛЮСТРАЦИЯ 1: вся линейка цветов одной фотографией -->
+    <figure class="pc-figure">
+      <picture>
+        <source type="image/webp" srcset="public/profile-colors/profile-colors-1-800.webp">
+        <img src="public/profile-colors/profile-colors-1.jpg"
+             alt="Пять секций остекления в ряд: профиль под дерево серый, тёмно-серый, светло-коричневый, тёмно-коричневый, чёрный"
+             loading="lazy" width="1280" height="720">
+      </picture>
+      <figcaption>Одна и та же система остекления в пяти оттенках. Слева направо: серый, тёмно-серый,
+        светло-коричневый, тёмно-коричневый, чёрный.</figcaption>
+    </figure>
+
+    <ul class="pc-grid">
+      <li class="pc-card">
+        <span class="pc-chip" style="--c:#b9bcc0"></span>
+        <h3>Серый</h3>
+        <p class="pc-decor">«Серый ясень»</p>
+        <p>Спокойный светлый тон с мягким рисунком волокон. Не спорит ни с белой, ни с серой отделкой.</p>
+        <p class="pc-fit">Подойдёт: светлые стены, минимализм, солнечная сторона.</p>
+      </li>
+      <li class="pc-card">
+        <span class="pc-chip" style="--c:#4b4f55"></span>
+        <h3>Тёмно-серый</h3>
+        <p class="pc-decor">«Графит под дерево»</p>
+        <p>Строгий современный оттенок: читается как дерево, но остаётся графитовым, хорошо держит контраст.</p>
+        <p class="pc-fit">Подойдёт: серый ламинат на стенах и полу, светлый фасад.</p>
+      </li>
+      <li class="pc-card">
+        <span class="pc-chip" style="--c:#c08a4a"></span>
+        <h3>Светло-коричневый</h3>
+        <p class="pc-decor">«Золотой дуб»</p>
+        <p>Тёплый медовый тон, самая привычная имитация дерева. Даёт ощущение уюта в любую погоду.</p>
+        <p class="pc-fit">Подойдёт: деревянная отделка и мебель из дерева, классика.</p>
+      </li>
+      <li class="pc-card">
+        <span class="pc-chip" style="--c:#5a3722"></span>
+        <h3>Тёмно-коричневый</h3>
+        <p class="pc-decor">«Орех»</p>
+        <p>Насыщенный глубокий тон с выраженной текстурой волокон. Самый «дорогой» вид из коричневых.</p>
+        <p class="pc-fit">Подойдёт: тёмная мебель, классический интерьер, тёплый вечерний свет.</p>
+      </li>
+      <li class="pc-card">
+        <span class="pc-chip" style="--c:#17181a"></span>
+        <h3>Чёрный</h3>
+        <p class="pc-decor">«Чёрное дерево»</p>
+        <p>Максимальный контраст: рама почти растворяется на фоне стекла и ночного города.</p>
+        <p class="pc-fit">Подойдёт: премиальный вид, стены светлых тонов.</p>
+      </li>
+    </ul>
+
+    <!-- ПРИМЕЧАНИЕ: текст + образец профиля в разрезе -->
+    <div class="pc-note">
+      <figure>
+        <picture>
+          <source type="image/webp" srcset="public/profile-colors/profile-colors-2-800.webp">
+          <img src="public/profile-colors/profile-colors-2.jpg"
+               alt="Образцы профиля в разрезе: снаружи ламинация под дерево в пяти оттенках, внутри обычные камеры профиля"
+               loading="lazy" width="1152" height="768">
+        </picture>
+      </figure>
+      <p>Профиль под дерево — это ПВХ или алюминий с плёночной ламинацией, а не массив: на фото видно,
+        что снаружи декор, а внутри обычные камеры профиля. Оттенок зависит от производителя плёнки,
+        поэтому один и тот же «орех» у разных поставщиков выглядит по-разному — подбираем по физическому
+        образцу. Тёмные и чёрный декора на солнечной стороне нагреваются сильнее и выгорают быстрее
+        светлых. Цветные окна изготавливаются дольше белых: 3–4 недели против 5–10 дней.
+        Гарантия на окна — 5 лет, на работы — 1 год, по договору.</p>
+    </div>
+
+    <div class="pc-cta">
+      <a class="pc-btn" href="#contacts">Привезти образцы на замер</a>
+      <span class="pc-hint">Бесплатный замер по Санкт-Петербургу и Ленинградской области.</span>
+    </div>
+
+  </div>
 </section>
-<script>(function(){window.addEventListener('message',function(e){try{if(!e||!e.data||e.data.type!=='profile-height')return;if(e.origin!==location.origin)return;var f=document.getElementById('profile-frame');if(f&&e.data.h>200&&e.data.h<12000){f.style.height=e.data.h+'px';}}catch(err){}});})();</script>
+<!-- ===== КОНЕЦ БЛОКА ===== -->
 <!-- ===== /ПРОФИЛЬ ОСТЕКЛЕНИЯ ===== -->
 
 
