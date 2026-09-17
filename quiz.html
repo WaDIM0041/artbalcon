@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конфигуратор сметы — АртЭлитБалкон</title>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^3.4.0/dist/tailwind.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-ink text-snow font-display">
+    
+    <!-- Конфигуратор сметы -->
+    <section class="py-28 lg:py-40">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+            <div class="space-y-3">
+                <p class="text-fog">Не верите цифрам — приезжайте на объект. По запросу покажем адреса завершённых балконов в вашем районе и сметы прошлых лет.</p>
+                <a href="#contacts" class="shrink-0 text-sm font-semibold text-ember transition-transform duration-300 hover:translate-x-1">Запросить адреса объектов →</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Основная форма конфигуратора (упрощенный вариант) -->
+    <section id="quiz" class="relative py-28 lg:py-40">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+            <!-- Шаг 1 из 6 -->
+            <div class="relative overflow-hidden rounded-3xl border border-line bg-panel p-6 sm:p-10">
+                <div class="mb-10">
+                    <div class="flex items-center justify-between text-[11px] font-semibold tracking-[0.22em] uppercase">
+                        <span class="text-fog">Шаг 1 / 6 — Новостройка</span>
+                        <span class="text-ember">%</span>
+                    </div>
+                    <div class="mt-3 h-[3px] overflow-hidden rounded-full bg-ink">
+                        <div class="h-full rounded-full bg-gradient-to-r from-ember-deep to-ember" style="width: 17%; animate:width .6s ease [.22,1,.36,1]"></div>
+                    </div>
+                </div>
+                
+                <div class="grid gap-8 lg:grid-cols-[1fr_360px] lg:gap-10">
+                    <!-- Шаг 1: Тип дома -->
+                    <div class="relative overflow-hidden rounded-3xl border border-line bg-panel p-6 sm:p-10">
+                        <div class="mb-10">
+                            <div class="flex items-center justify-between text-[11px] font-semibold tracking-[0.22em] uppercase">
+                                <span class="text-fog">Шаг 2 / 6 — Основная система</span>
+                                <span class="text-ember">%</span>
+                            </div>
+                            <div class="mt-3 h-[3px] overflow-hidden rounded-full bg-ink">
+                                <div class="h-full rounded-full bg-gradient-to-r from-ember-deep to-ember" style="width: 33%; animate:width .6s ease [.22,1,.36,1]"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="grid gap-3 sm:grid-cols-2">
+                                <div>
+                                    <div class="grid gap-3 sm:grid-cols-2">
+                                        <div class="icon ▤ name">Новостройка</div>
+                                        <div class="icon ▦ name">Вторичный фонд</div>
+                                    </div>
+                                    <p>СПб и ЛО, от 2015 года. Работаем по регламенту застройщика и УК</p>
+                                </div>
+                                <div>
+                                    <p>Исторический центр, панель, кирпич. Усиление и обследование включены</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="border-t border-line py-12">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+            <p class="text-sm leading-relaxed text-fog/60">Если почтовая программа не открылась, позвоните: <strong id="requestPhoneHint">+7 (969) 776-26-03</strong></p>
+            <div class="dialog-actions mt-4">
+                <button type="button" data-close="requestDialog">Отмена</button>
+                <button type="button" class="primary" id="requestSubmit">Отправить</button>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Минимальная инициализация — для внешнего использования
+        // Полный функционал требует integration с оригинальным приложением
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Конфигуратор загружен — полный функционал в исходном приложении');
+        });
+    </script>
+    
+</body>
+</html>
