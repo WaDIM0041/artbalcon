@@ -999,7 +999,7 @@ html[data-theme="light"] .lb__fig figcaption{ color: #f4f1ec; }
 <script>
 (function(){function send(){try{var h=document.body.scrollHeight;if(h>200&&h<12000){parent.postMessage({type:'ideas-height',h:h},location.origin);}}catch(e){}}window.addEventListener('load',function(){send();setTimeout(send,400);if(document.fonts&&document.fonts.ready){document.fonts.ready.then(send);}});window.addEventListener('resize',send);})();
 </script>
-<script>(function(){var KEY='ab-theme';function apply(){var t='dark';try{t=localStorage.getItem(KEY)||'dark';}catch(e){}document.documentElement.dataset.theme=(t==='light')?'light':'dark';}window.addEventListener('storage',function(e){if(!e||e.key===null||e.key===KEY)apply();});apply();})();
+<script>(function(){var KEY='ab-theme-v2';function apply(){var t='dark';try{t=localStorage.getItem(KEY)||'dark';}catch(e){}document.documentElement.dataset.theme=(t==='light')?'light':'dark';}window.addEventListener('storage',function(e){if(!e||e.key===null||e.key===KEY)apply();});apply();})();
 </script>
 </body>
 </html>
