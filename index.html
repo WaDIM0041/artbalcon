@@ -608,6 +608,22 @@ savedSnapshot=currentSnapshot();dirty=false;
   border-top: 1px solid var(--line);
 }
 
+/* ---------- 4b. КАРУСЕЛЬ ПРОФИЛЕЙ ---------- */
+.pc-car{position:relative;overflow:hidden;border-radius:var(--r-card);background:var(--card);}
+.pc-slides{position:relative;aspect-ratio:16/9;}
+.pc-slide{position:absolute;inset:0;opacity:0;transform:scale(1.05);transition:opacity .8s ease,transform 1.4s ease;pointer-events:none;}
+.pc-slide.is-on{opacity:1;transform:scale(1);pointer-events:auto;}
+.pc-slide img{display:block;width:100%;height:100%;object-fit:cover;}
+.pc-prev,.pc-next{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(10,11,13,.55);color:#f4f1ec;font-size:22px;line-height:1;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background .3s ease,transform .3s ease;}
+.pc-prev{left:14px;}
+.pc-next{right:14px;}
+.pc-prev:hover,.pc-next:hover{background:rgba(240,163,90,.85);color:#1a1006;transform:translateY(-50%) scale(1.06);}
+.pc-dots{position:absolute;z-index:2;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:8px;}
+.pc-dot{width:9px;height:9px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.35);cursor:pointer;transition:background .3s ease,transform .3s ease;}
+.pc-dot.is-on{background:var(--accent);transform:scale(1.25);}
+.pc-cap{position:absolute;z-index:2;left:14px;bottom:12px;padding:7px 14px;border-radius:999px;background:rgba(10,11,13,.6);border:1px solid rgba(240,163,90,.4);color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+@media (prefers-reduced-motion:reduce){.pc-slide{transition:none;}}
+
 /* ---------- 5. СЕТКА КАРТОЧЕК ---------- */
 .pc-grid{
   display: grid; gap: 16px;
@@ -713,20 +729,32 @@ savedSnapshot=currentSnapshot();dirty=false;
   <div class="pc-wrap">
 
     <p class="pc-eyebrow">Ламинация под дерево</p>
-    <h2 class="pc-title">Каким может быть профиль остекления</h2>
+    <h2 class="pc-title">Разнообразный профиль под ваш балкон</h2>
     <p class="pc-sub">Пять оттенков ламинации со структурой дерева — от светлого серого до чёрного.
       Подбираем цвет под отделку балкона и фасад дома и привозим физические образцы на замер.</p>
 
-    <!-- ИЛЛЮСТРАЦИЯ 1: вся линейка цветов одной фотографией -->
+    <!-- КАРУСЕЛЬ: пять профилей под дерево -->
     <figure class="pc-figure">
-      <picture>
-        <source type="image/webp" srcset="public/profile-colors/profile-colors-1-800.webp">
-        <img src="public/profile-colors/profile-colors-1.jpg"
-             alt="Пять секций остекления в ряд: профиль под дерево серый, тёмно-серый, светло-коричневый, тёмно-коричневый, чёрный"
-             loading="lazy" width="1280" height="720">
-      </picture>
-      <figcaption>Одна и та же система остекления в пяти оттенках. Слева направо: серый, тёмно-серый,
-        светло-коричневый, тёмно-коричневый, чёрный.</figcaption>
+      <div class="pc-car" id="pcCar">
+        <div class="pc-slides">
+          <div class="pc-slide is-on"><img src="public/profile-colors/carousel-1-gray-1280.webp" alt="Профиль под дерево, серый" loading="eager" decoding="async" width="1280" height="720"></div>
+          <div class="pc-slide"><img src="public/profile-colors/carousel-2-dark-grey-1280.webp" alt="Профиль под дерево, тёмно-серый" loading="lazy" decoding="async" width="1280" height="720"></div>
+          <div class="pc-slide"><img src="public/profile-colors/carousel-3-light-brown-1280.webp" alt="Профиль под дерево, светло-коричневый" loading="lazy" decoding="async" width="1280" height="720"></div>
+          <div class="pc-slide"><img src="public/profile-colors/carousel-4-chocolate-brown-1280.webp" alt="Профиль под дерево, тёмно-коричневый" loading="lazy" decoding="async" width="1280" height="720"></div>
+          <div class="pc-slide"><img src="public/profile-colors/carousel-5-black-1280.webp" alt="Профиль под дерево, чёрный" loading="lazy" decoding="async" width="1280" height="720"></div>
+        </div>
+        <button class="pc-prev" type="button" aria-label="Предыдущее фото">‹</button>
+        <button class="pc-next" type="button" aria-label="Следующее фото">›</button>
+        <div class="pc-cap" id="pcCap">Серый</div>
+        <div class="pc-dots" role="tablist" aria-label="Выбор фото профиля">
+          <button class="pc-dot is-on" type="button" role="tab" aria-label="Фото 1: серый"></button>
+          <button class="pc-dot" type="button" role="tab" aria-label="Фото 2: тёмно-серый"></button>
+          <button class="pc-dot" type="button" role="tab" aria-label="Фото 3: светло-коричневый"></button>
+          <button class="pc-dot" type="button" role="tab" aria-label="Фото 4: тёмно-коричневый"></button>
+          <button class="pc-dot" type="button" role="tab" aria-label="Фото 5: чёрный"></button>
+        </div>
+      </div>
+      <figcaption>Листайте: профиль под дерево в пяти оттенках — серый, тёмно-серый, светло-коричневый, тёмно-коричневый, чёрный.</figcaption>
     </figure>
 
     <ul class="pc-grid">
@@ -794,6 +822,7 @@ savedSnapshot=currentSnapshot();dirty=false;
 </section>
 <!-- ===== КОНЕЦ БЛОКА ===== -->
 <!-- ===== /ПРОФИЛЬ ОСТЕКЛЕНИЯ ===== -->
+<script>(function(){var car=document.getElementById('pcCar');if(!car)return;var slides=car.querySelectorAll('.pc-slide');var dots=car.querySelectorAll('.pc-dot');var cap=document.getElementById('pcCap');var names=['Серый','Тёмно-серый','Светло-коричневый','Тёмно-коричневый','Чёрный'];var idx=0,timer=null;var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;function show(n){idx=((n%slides.length)+slides.length)%slides.length;for(var k=0;k<slides.length;k++){slides[k].classList.toggle('is-on',k===idx);dots[k].classList.toggle('is-on',k===idx);}if(cap)cap.textContent=names[idx];}function stop(){if(timer){clearInterval(timer);timer=null;}}function start(){stop();if(reduce||document.hidden)return;timer=setInterval(function(){show(idx+1);},5000);}var prev=car.querySelector('.pc-prev'),next=car.querySelector('.pc-next');if(prev)prev.addEventListener('click',function(){show(idx-1);start();});if(next)next.addEventListener('click',function(){show(idx+1);start();});for(var d=0;d<dots.length;d++)(function(d){dots[d].addEventListener('click',function(){show(d);start();});})(d);car.addEventListener('mouseenter',stop);car.addEventListener('mouseleave',start);document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});if('IntersectionObserver' in window){new IntersectionObserver(function(es){if(es[0].isIntersecting)start();else stop();},{threshold:.15}).observe(car);}show(0);start();})();</script>
 <script>(function(){var SEL='section.prof-colors',TGT='section#contacts',tries=0;function place(){var el=document.querySelector(SEL);var t=document.querySelector(TGT);if(!el||!t)return false;if(el.nextElementSibling===t)return true;try{t.parentNode.insertBefore(el,t);}catch(e){return false;}return true;}function tick(){tries++;var done=false;try{done=place();}catch(e){}if(!done&&tries<60){setTimeout(tick,250);return;}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(tick,60);});}else{setTimeout(tick,60);}})();</script>
 
 
