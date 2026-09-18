@@ -617,6 +617,30 @@
   .card{ opacity: 1 !important; transform: none !important; filter: none !important; }
   .card__inner::before{ opacity: 0 !important; }
 }
+
+/* ---------- 12. СВЕТЛАЯ ТЕМА (переключатель сайта) ---------- */
+html[data-theme="light"] body{ background: #f4f1ea; }
+html[data-theme="light"] .ideas{
+  --bg: #f4f1ea;
+  --text: #1d1b18;
+  --muted: rgba(29,27,24,.62);
+  --line: rgba(23,20,15,.12);
+}
+html[data-theme="light"] .ideas__eyebrow,
+html[data-theme="light"] .step__num,
+html[data-theme="light"] .card__tag{ color: #9c5f16; }
+html[data-theme="light"] .step__num{ border-color: rgba(156,95,22,.55); }
+html[data-theme="light"] .card__tag{ border-color: rgba(156,95,22,.45); background: rgba(156,95,22,.12); }
+html[data-theme="light"] .card__inner{ background-color: #e8e2d6; }
+html[data-theme="light"] .card__veil{ background: linear-gradient(to top, rgba(244,241,234,.94) 0%, rgba(244,241,234,.45) 40%, rgba(244,241,234,0) 72%); }
+html[data-theme="light"] .card__name{ color: rgba(29,27,24,.85); }
+html[data-theme="light"] .card:hover .card__name,
+html[data-theme="light"] .card:focus-within .card__name{ color: #111111; }
+html[data-theme="light"] .slab{ background: linear-gradient(180deg, rgba(23,20,15,.045), rgba(23,20,15,.012)); }
+html[data-theme="light"] .hint__inner{ background: rgba(255,255,255,.72); }
+html[data-theme="light"] .btn--ghost{ color: #9c5f16; border-color: rgba(156,95,22,.5); }
+html[data-theme="light"] .btn--ghost:hover{ background: rgba(156,95,22,.08); }
+html[data-theme="light"] .lb__fig figcaption{ color: #f4f1ec; }
 </style>
 
 <section class="ideas" aria-labelledby="ideas-title">
@@ -974,6 +998,8 @@
 </script>
 <script>
 (function(){function send(){try{var h=document.body.scrollHeight;if(h>200&&h<12000){parent.postMessage({type:'ideas-height',h:h},location.origin);}}catch(e){}}window.addEventListener('load',function(){send();setTimeout(send,400);if(document.fonts&&document.fonts.ready){document.fonts.ready.then(send);}});window.addEventListener('resize',send);})();
+</script>
+<script>(function(){var KEY='ab-theme';function apply(){var t='dark';try{t=localStorage.getItem(KEY)||'dark';}catch(e){}document.documentElement.dataset.theme=(t==='light')?'light':'dark';}window.addEventListener('storage',function(e){if(!e||e.key===null||e.key===KEY)apply();});apply();})();
 </script>
 </body>
 </html>
