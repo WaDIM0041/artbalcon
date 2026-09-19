@@ -718,6 +718,8 @@ savedSnapshot=currentSnapshot();dirty=false;
   transition: transform .9s ease;
 }
 .pc-card:hover .pc-chip::after{ transform: translateX(130%); }
+.pc-card{cursor:pointer;}
+.pc-card.is-active{border-color:rgba(240,163,90,.6);box-shadow:0 22px 44px -22px rgba(240,163,90,.45),0 12px 28px -14px rgba(0,0,0,.7);transform:translateY(-5px);}
 
 .pc-card h3{ margin: 0 0 4px; font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; }
 .pc-decor{ margin: 0 0 10px; font-size: 12.5px; color: var(--accent); }
@@ -772,7 +774,7 @@ savedSnapshot=currentSnapshot();dirty=false;
 <section class="prof-colors">
   <div class="pc-wrap">
 
-    <p class="pc-eyebrow">Ламинация под дерево</p>
+    <p class="pc-eyebrow">Цветовая гамма под Дерево</p>
     <h2 class="pc-title">Разнообразный профиль под ваш балкон</h2>
     <p class="pc-sub">Пять оттенков ламинации со структурой дерева — от светлого серого до чёрного.
       Подбираем цвет под отделку балкона и фасад дома и привозим физические образцы на замер.</p>
@@ -866,7 +868,7 @@ savedSnapshot=currentSnapshot();dirty=false;
 </section>
 <!-- ===== КОНЕЦ БЛОКА ===== -->
 <!-- ===== /ПРОФИЛЬ ОСТЕКЛЕНИЯ ===== -->
-<script>(function(){var car=document.getElementById('pcCar');if(!car)return;var slides=car.querySelectorAll('.pc-slide');var dots=car.querySelectorAll('.pc-dot');var cap=document.getElementById('pcCap');var names=['Серый','Тёмно-серый','Светло-коричневый','Тёмно-коричневый','Чёрный'];var idx=0,timer=null;var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;function show(n){idx=((n%slides.length)+slides.length)%slides.length;for(var k=0;k<slides.length;k++){slides[k].classList.toggle('is-on',k===idx);dots[k].classList.toggle('is-on',k===idx);}if(cap)cap.textContent=names[idx];}function stop(){if(timer){clearInterval(timer);timer=null;}}function start(){stop();if(reduce||document.hidden)return;timer=setInterval(function(){show(idx+1);},5000);}var prev=car.querySelector('.pc-prev'),next=car.querySelector('.pc-next');if(prev)prev.addEventListener('click',function(){show(idx-1);start();});if(next)next.addEventListener('click',function(){show(idx+1);start();});for(var d=0;d<dots.length;d++)(function(d){dots[d].addEventListener('click',function(){show(d);start();});})(d);car.addEventListener('mouseenter',stop);car.addEventListener('mouseleave',start);document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});if('IntersectionObserver' in window){new IntersectionObserver(function(es){if(es[0].isIntersecting)start();else stop();},{threshold:.15}).observe(car);}show(0);start();})();</script>
+<script>(function(){var car=document.getElementById('pcCar');if(!car)return;var slides=car.querySelectorAll('.pc-slide');var dots=car.querySelectorAll('.pc-dot');var cap=document.getElementById('pcCap');var cards=document.querySelectorAll('.pc-grid .pc-card');var names=['Серый','Тёмно-серый','Светло-коричневый','Тёмно-коричневый','Чёрный'];var idx=0,timer=null;var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;function show(n){idx=((n%slides.length)+slides.length)%slides.length;for(var k=0;k<slides.length;k++){slides[k].classList.toggle('is-on',k===idx);dots[k].classList.toggle('is-on',k===idx);}for(var j=0;j<cards.length&&j<names.length;j++){cards[j].classList.toggle('is-active',j===idx);}if(cap)cap.textContent=names[idx];}function stop(){if(timer){clearInterval(timer);timer=null;}}function start(){stop();}var prev=car.querySelector('.pc-prev'),next=car.querySelector('.pc-next');if(prev)prev.addEventListener('click',function(){show(idx-1);start();});if(next)next.addEventListener('click',function(){show(idx+1);start();});for(var d=0;d<dots.length;d++)(function(d){dots[d].addEventListener('click',function(){show(d);start();});})(d);car.addEventListener('mouseenter',stop);car.addEventListener('mouseleave',start);document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});if('IntersectionObserver' in window){new IntersectionObserver(function(es){if(es[0].isIntersecting)start();else stop();},{threshold:.15}).observe(car);}for(var c=0;c<cards.length;c++)(function(c){cards[c].setAttribute('role','button');cards[c].setAttribute('tabindex','0');cards[c].addEventListener('click',function(){show(c);start();});cards[c].addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();show(c);start();}});})(c);show(0);start();})();</script>
 <script>(function(){var SEL='section.prof-colors',TGT='section#contacts',tries=0;function place(){var el=document.querySelector(SEL);var t=document.querySelector(TGT);if(!el||!t)return false;if(el.nextElementSibling===t)return true;try{t.parentNode.insertBefore(el,t);}catch(e){return false;}return true;}function tick(){tries++;var done=false;try{done=place();}catch(e){}if(!done&&tries<60){setTimeout(tick,250);return;}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(tick,60);});}else{setTimeout(tick,60);}})();</script>
 
 
