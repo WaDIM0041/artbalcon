@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wadim0041.github.io/artbalcon-v2/sitemap.xml
+Sitemap: https://wadim0041.github.io/artbalcon/sitemap.xml

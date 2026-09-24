@@ -31,7 +31,7 @@
    Must output: `saved` at the end.
 
 5. **Check GitHub Pages link:**
-   - https://wadim0041.github.io/artbalcon-v2/
+   - https://wadim0041.github.io/artbalcon/
    - Open in new incognito window
    - Verify no JS errors in console
 
